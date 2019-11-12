@@ -1,0 +1,63 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+	<div id="test">test</div>
+	<div id="date">date</div>
+	<div id="wait">wait</div>
+
+	<script>
+
+		let x = 200; 
+		let y = 100;
+		
+		let inc = 9;
+		let velocity = 0;
+		let gravity = .1;
+
+		let h = window.innerHeight;
+		let w = window.innerWidth;
+		console.log(h);
+		console.log(w);
+
+		function move() {
+
+			x = x + inc;
+			velocity += gravity;
+			y = y + velocity;
+			
+			if (x > (w - 50) || x < 0) {
+				inc = -inc;
+			}
+
+			inc = .998 * inc;
+			
+			let time = new Date();
+			let seconds = time.getSeconds();
+			 
+			if (y > h - 50) {
+				let penetration = (y - (h - 50));
+				y = (h - 50) - (velocity - penetration);
+				velocity = -velocity;
+				velocity *= .9;
+			}
+
+			document.getElementById("date").style.left = x;
+			document.getElementById("date").style.top = y;
+			document.getElementById("date").innerHTML = seconds;	
+		}
+
+		move();
+
+		setInterval(move, 5);
+
+	</script>
+
+</body>
+
+</html>
+
